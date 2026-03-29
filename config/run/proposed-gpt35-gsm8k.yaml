@@ -1,0 +1,40 @@
+# ICoCoT (Proposed Method) - GPT-3.5-Turbo on GSM8K
+# Invariant Counterfactual Checkpointing with adaptive compute
+
+run_id: proposed-gpt35-gsm8k
+
+method:
+  name: icocot
+  type: proposed
+  description: "Invariant Counterfactual Checkpointing: prompt-only CoT with invariance probes and adaptive compute"
+  
+  # ICoCoT specific parameters
+  use_invariance_probes: true
+  use_adaptive_compute: true
+  checkpoint_states: true
+  transform_types:
+    - PARAPHRASE
+    - REORDER
+    - UNIT_SCALE
+    - EQUATION_FORM
+  num_transforms: 3  # T=3
+  stability_threshold: 0.67  # tau
+  recompute_samples: 5  # R=5
+  fault_localization: true
+
+model:
+  provider: openai
+  name: gpt-3.5-turbo
+  max_tokens: 450
+  temperature: 0.7
+
+dataset:
+  name: gsm8k
+  split: test
+  num_samples: 200
+  random_seed: 42
+
+inference:
+  batch_size: 1  # Process one problem at a time
+  save_outputs: true
+  save_intermediate: true

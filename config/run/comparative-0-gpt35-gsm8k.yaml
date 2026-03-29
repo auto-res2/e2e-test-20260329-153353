@@ -1,0 +1,32 @@
+# Baseline 1: Standard Chain-of-Thought (CoT)
+# Single-pass CoT without any reliability enhancement
+
+run_id: comparative-0-gpt35-gsm8k
+
+method:
+  name: standard_cot
+  type: comparative-0
+  description: "Standard Chain-of-Thought: single-pass reasoning with no enhancements"
+  
+  # Standard CoT parameters
+  use_invariance_probes: false
+  use_adaptive_compute: false
+  checkpoint_states: false
+  num_samples: 1  # Single sample only
+
+model:
+  provider: openai
+  name: gpt-3.5-turbo
+  max_tokens: 450
+  temperature: 0.7
+
+dataset:
+  name: gsm8k
+  split: test
+  num_samples: 200
+  random_seed: 42
+
+inference:
+  batch_size: 1
+  save_outputs: true
+  save_intermediate: false

@@ -1,0 +1,33 @@
+# Baseline 2: Self-Consistency CoT
+# Multiple samples with majority voting (compute-matched to ICoCoT)
+
+run_id: comparative-1-gpt35-gsm8k
+
+method:
+  name: self_consistency_cot
+  type: comparative-1
+  description: "Self-Consistency CoT: multiple samples with majority voting"
+  
+  # Self-Consistency parameters
+  use_invariance_probes: false
+  use_adaptive_compute: false
+  checkpoint_states: false
+  num_samples: 5  # Match average compute of ICoCoT (~5-6 calls)
+  voting_method: majority
+
+model:
+  provider: openai
+  name: gpt-3.5-turbo
+  max_tokens: 450
+  temperature: 0.7
+
+dataset:
+  name: gsm8k
+  split: test
+  num_samples: 200
+  random_seed: 42
+
+inference:
+  batch_size: 1
+  save_outputs: true
+  save_intermediate: false

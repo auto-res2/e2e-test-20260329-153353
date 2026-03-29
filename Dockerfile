@@ -1,5 +1,5 @@
-# Base Dockerfile for AIRAS ML Experiments
-# This provides a reproducible environment for all experiment stages
+# Dockerfile for ICoCoT Prompt Tuning Experiment
+# Inference-only Chain-of-Thought reasoning on GSM8K
 
 FROM python:3.11-slim
 

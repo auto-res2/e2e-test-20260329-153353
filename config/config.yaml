@@ -1,18 +1,43 @@
-# Main configuration for Hydra
-# This file will be populated by AI code generator based on experimental design
+# Main configuration for ICoCoT Prompt Tuning Experiment
 
 defaults:
   - _self_
   - run: ???  # loads from config/run/, accessible as 'run=' in CLI
 
-# Execution mode: main, sanity, or pilot
-mode: main
+# Execution mode: full, sanity, or pilot
+mode: full
 
 # Results output directory
 results_dir: .research/results
 
-# WandB configuration (will be set by AI agent)
+# WandB configuration
 wandb:
-  entity: ???
-  project: ???
+  entity: airas
+  project: 20260329-153353
   mode: online
+
+# Dataset configuration
+dataset:
+  name: gsm8k
+  split: test
+  num_samples: 200  # For full mode
+  random_seed: 42
+  cache_dir: .cache
+
+# Model configuration (OpenAI API by default, can override with local model)
+model:
+  provider: openai  # openai, anthropic, or local
+  name: gpt-3.5-turbo  # Cost-effective for prompt experiments
+  max_tokens: 450
+  temperature: 0.7
+  api_key_env: OPENAI_API_KEY  # Environment variable name
+
+# Inference configuration
+inference:
+  num_transforms: 3  # T=3 invariance transforms per problem
+  stability_threshold: 0.67  # tau: if 2/3 agree, accept
+  recompute_samples: 5  # R=5 samples for adaptive recompute
+  max_tokens_transform: 300
+  max_tokens_replay: 300
+  max_tokens_recompute: 250
+  timeout_seconds: 30
